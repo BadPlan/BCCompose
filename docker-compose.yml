@@ -1,0 +1,21 @@
+version: "2"
+services:
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: service
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: bc
+    ports:
+      - "8091:5432"
+    container_name: postgres
+  auth:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8090:8090"
+    links:
+      - "database:db"
+    container_name: bcauth
+    image: bcauth
