@@ -12,10 +12,20 @@ services:
   auth:
     build:
       dockerfile: Dockerfile
-      context: .
+      context: ../BCAuth
     ports:
       - "8090:8090"
     links:
       - "database:db"
     container_name: bcauth
     image: bcauth
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ../BCFrontend
+    ports:
+      - "80:8080"
+    links:
+      - "auth:auth"
+    container_name: bcfront
+    image: bcfront
